@@ -18,13 +18,14 @@ public class Dashboard {
             return;
         }
 
-        System.out.println("\n==== DASHBOARD (" + user.role.toUpperCase() + ") ====");
+        String role = Register.normalizeRole(user.role);
+        System.out.println("\n==== DASHBOARD (" + role.toUpperCase() + ") ====");
 
-        if (user.role.equals("citizen")) {
+        if (role.equals("citizen")) {
             citizenDashboard(sc, user);
-        } else if (user.role.equals("worker")) {
+        } else if (role.equals("worker")) {
             workerDashboard(sc, user);
-        } else if (user.role.equals("administrator")) {
+        } else if (role.equals("administrator")) {
             adminDashboard(sc, user);
         } else {
             System.out.println("Unknown role.");
@@ -76,7 +77,7 @@ public class Dashboard {
                             " | " + c.description + " | urgent=" + c.urgent);
                 }
             } else if (ch == 2) {
-                updateComplaintFlow(sc);
+                updateComplaintFlow(sc, user);
             } else if (ch == 3) {
                 return;
             } else {
@@ -106,7 +107,7 @@ public class Dashboard {
                             " | " + c.status + " | " + c.progress + "% | urgent=" + c.urgent);
                 }
             } else if (ch == 2) {
-                updateComplaintFlow(sc);
+                updateComplaintFlow(sc, user);
             } else if (ch == 3) {
                 showAnalytics();
             } else if (ch == 4) {
@@ -117,7 +118,13 @@ public class Dashboard {
         }
     }
 
-    private void updateComplaintFlow(Scanner sc) {
+    private void updateComplaintFlow(Scanner sc, Register.User user) {
+        String role = Register.normalizeRole(user.role);
+        if (!role.equals("worker") && !role.equals("administrator")) {
+            System.out.println("Only admin and worker can update complaint status.");
+            return;
+        }
+
         System.out.print("Enter complaint ID: ");
         String id = sc.nextLine().trim();
 

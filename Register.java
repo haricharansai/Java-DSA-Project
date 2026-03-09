@@ -2,6 +2,21 @@ import java.util.*;
 
 public class Register {
 
+    public static String normalizeRole(String roleInput) {
+        if (roleInput == null) return "";
+        String role = roleInput.trim().toLowerCase();
+        if (role.equals("a")) return "administrator";
+        if (role.equals("c")) return "citizen";
+        if (role.equals("w")) return "worker";
+        if (role.equals("admin") || role.equals("administrator") || role.equals("adminstrator")) {
+            return "administrator";
+        }
+        if (role.equals("citizen") || role.equals("worker")) {
+            return role;
+        }
+        return role;
+    }
+
     static class User {
         String username;
         String email;
@@ -12,7 +27,7 @@ public class Register {
             this.username = username;
             this.email = email;
             this.password = password;
-            this.role = role.toLowerCase();
+            this.role = normalizeRole(role);
         }
 
         @Override
@@ -120,8 +135,8 @@ public class Register {
         System.out.print("Enter password: ");
         String pw = sc.nextLine().trim();
 
-        System.out.print("Enter role (Citizen/Worker/Administrator): ");
-        String rl = sc.nextLine().trim().toLowerCase();
+        System.out.print("Enter role (C=Citizen / W=Worker / A=Administrator): ");
+        String rl = normalizeRole(sc.nextLine());
 
         User u = getUser(un);
 
@@ -141,6 +156,11 @@ public class Register {
 
     public User getCurrentUser() {
         return currentUser;
+    }
+
+    public void logout() {
+        currentUser = null;
+        System.out.println("Logged out successfully.");
     }
 
     public void addUserDirect(User u) {

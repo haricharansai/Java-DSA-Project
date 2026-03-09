@@ -24,45 +24,138 @@ public class Main {
         addDemoComplaints(complaints);
 
         while (true) {
-            System.out.println("\n==== GROWCLEAN PUBLIC SERVICE COMPLAINT SYSTEM ====");
-            System.out.println("1. Register Citizen");
-            System.out.println("2. Login");
-            System.out.println("3. File Complaint");
-            System.out.println("4. Dashboard");
-            System.out.println("5. Track Complaint Status");
-            System.out.println("6. Exit");
-            System.out.print("Enter choice: ");
+            Register.User currentUser = reg.getCurrentUser();
 
-            int ch;
-            try {
-                ch = Integer.parseInt(sc.nextLine());
-            } catch (Exception e) {
-                System.out.println("Invalid input.");
+            if (currentUser == null) {
+                System.out.println("\n==== GROWCLEAN PUBLIC SERVICE COMPLAINT SYSTEM ====");
+                System.out.println("1. Register Citizen");
+                System.out.println("2. Login");
+                System.out.println("3. Track Complaint Status");
+                System.out.println("4. Exit");
+                System.out.print("Enter choice: ");
+
+                int ch = readChoice(sc);
+                if (ch == -1) continue;
+
+                switch (ch) {
+                    case 1:
+                        reg.registerCitizen(sc);
+                        break;
+                    case 2:
+                        reg.login(sc);
+                        break;
+                    case 3:
+                        status.trackComplaint(sc);
+                        break;
+                    case 4:
+                        System.out.println("Exiting...");
+                        return;
+                    default:
+                        System.out.println("Invalid choice.");
+                }
                 continue;
             }
 
-            switch (ch) {
-                case 1:
-                    reg.registerCitizen(sc);
-                    break;
-                case 2:
-                    reg.login(sc);
-                    break;
-                case 3:
-                    complaints.fileComplaint(sc);
-                    break;
-                case 4:
-                    dash.openDashboard(sc);
-                    break;
-                case 5:
-                    status.trackComplaint(sc);
-                    break;
-                case 6:
-                    System.out.println("Exiting...");
-                    return;
-                default:
-                    System.out.println("Invalid choice.");
+            String role = Register.normalizeRole(currentUser.role);
+
+            if (role.equals("citizen")) {
+                System.out.println("\n==== CITIZEN MENU ====");
+                System.out.println("1. File Complaint");
+                System.out.println("2. Dashboard");
+                System.out.println("3. Track Complaint Status");
+                System.out.println("4. Logout");
+                System.out.println("5. Exit");
+                System.out.print("Enter choice: ");
+
+                int ch = readChoice(sc);
+                if (ch == -1) continue;
+
+                switch (ch) {
+                    case 1:
+                        complaints.fileComplaint(sc);
+                        break;
+                    case 2:
+                        dash.openDashboard(sc);
+                        break;
+                    case 3:
+                        status.trackComplaint(sc);
+                        break;
+                    case 4:
+                        reg.logout();
+                        break;
+                    case 5:
+                        System.out.println("Exiting...");
+                        return;
+                    default:
+                        System.out.println("Invalid choice.");
+                }
+            } else if (role.equals("worker")) {
+                System.out.println("\n==== WORKER MENU ====");
+                System.out.println("1. Worker Dashboard");
+                System.out.println("2. Track Complaint Status");
+                System.out.println("3. Logout");
+                System.out.println("4. Exit");
+                System.out.print("Enter choice: ");
+
+                int ch = readChoice(sc);
+                if (ch == -1) continue;
+
+                switch (ch) {
+                    case 1:
+                        dash.openDashboard(sc);
+                        break;
+                    case 2:
+                        status.trackComplaint(sc);
+                        break;
+                    case 3:
+                        reg.logout();
+                        break;
+                    case 4:
+                        System.out.println("Exiting...");
+                        return;
+                    default:
+                        System.out.println("Invalid choice.");
+                }
+            } else if (role.equals("administrator")) {
+                System.out.println("\n==== ADMINISTRATOR MENU ====");
+                System.out.println("1. Administrator Dashboard");
+                System.out.println("2. Track Complaint Status");
+                System.out.println("3. Logout");
+                System.out.println("4. Exit");
+                System.out.print("Enter choice: ");
+
+                int ch = readChoice(sc);
+                if (ch == -1) continue;
+
+                switch (ch) {
+                    case 1:
+                        dash.openDashboard(sc);
+                        break;
+                    case 2:
+                        status.trackComplaint(sc);
+                        break;
+                    case 3:
+                        reg.logout();
+                        break;
+                    case 4:
+                        System.out.println("Exiting...");
+                        return;
+                    default:
+                        System.out.println("Invalid choice.");
+                }
+            } else {
+                System.out.println("Unknown role. Logging out for safety.");
+                reg.logout();
             }
+        }
+    }
+
+    private static int readChoice(Scanner sc) {
+        try {
+            return Integer.parseInt(sc.nextLine());
+        } catch (Exception e) {
+            System.out.println("Invalid input.");
+            return -1;
         }
     }
 
