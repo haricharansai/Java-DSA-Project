@@ -1,0 +1,18 @@
+GC-2026-001|drainage|KPHB|Drain water overflowing on road|9876543210|sriram|pending|10|false|Complaint filed.
+GC-2026-002|garbage|Miyapur|Garbage not collected for 3 days|9876543211|sriram|in-progress|50|true|Complaint filed.
+GC-2026-003|electricity|5-182/1 ,SR Naik Nagar IDA|line cut down|7995231675|Haricharansai|pending|0|false|Complaint filed.
+GC-2026-004|streetlight|Kukatpally|Street light not working near park|9876543212|Anand|pending|0|false|Complaint filed.
+GC-2026-005|water supply|Balanagar|No water supply since morning|9876543213|Priya|in-progress|30|true|Complaint filed.
+GC-2026-006|road|Miyapur|Potholes on main road causing traffic|9876543214|Ravi|pending|5|true|Complaint filed.
+GC-2026-007|garbage|KPHB|Overflowing bins near bus stop|9876543215|Haricharansai|pending|0|false|Complaint filed.
+GC-2026-008|drainage|Chandanagar|Drain blocked and bad smell|9876543216|Hari|in-progress|40|false|Complaint filed.
+GC-2026-009|water leakage|Hitech City|Pipe leakage on street|9876543217|Anand|resolved|100|false|Complaint filed.;Issue resolved by maintenance team.
+GC-2026-010|electricity|Kondapur|Power fluctuations since last night|9876543218|Priya|pending|10|true|Complaint filed.
+GC-2026-011|road|Bachupally|Broken speed breaker near school|9876543219|Ravi|in-progress|55|false|Complaint filed.
+GC-2026-012|streetlight|Nizampet|Lights off in lane 4|9876543220|Haricharansai|resolved|100|false|Complaint filed.;Lights repaired.
+GC-2026-013|garbage|Gachibowli|Garbage not collected for 2 days|9876543221|Priya|pending|0|false|Complaint filed.
+GC-2026-014|water supply|KPHB|Low water pressure in apartments|9876543222|Hari|in-progress|25|false|Complaint filed.
+GC-2026-015|drainage|Madhapur|Overflowing drain near market|9876543223|Anand|pending|0|true|Complaint filed.
+GC-2026-016|road|Kondapur|Road divider damaged|9876543224|Ravi|resolved|100|false|Complaint filed.;Work completed.
+GC-2026-017|electricity|Balanagar|Transformer noise and sparks|9876543225|Priya|in-progress|60|true|Complaint filed.
+GC-2026-018|garbage|Chandanagar|Garbage dump not cleared|9876543226|Haricharansai|pending|15|false|Complaint filed.

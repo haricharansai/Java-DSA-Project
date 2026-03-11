@@ -1,4 +1,7 @@
 import java.util.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.*;
+import java.io.IOException;
 
 public class Register {
 
@@ -124,6 +127,7 @@ public class Register {
 
         User u = new User(un, em, pw, "citizen");
         putUser(u);
+        saveToFile();
 
         System.out.println("Citizen registered successfully.");
     }
@@ -167,5 +171,99 @@ public class Register {
         if (!existsUser(u.username)) {
             putUser(u);
         }
+    }
+
+    public int size() {
+        return cnt;
+    }
+
+    public void saveToFile() {
+        Path dir = Paths.get("data");
+        Path file = dir.resolve("users.txt");
+        try {
+            Files.createDirectories(dir);
+            List<String> lines = new ArrayList<>();
+            for (LinkedList<User> bucket : tab) {
+                for (User u : bucket) {
+                    lines.add(escape(u.username) + "|" + escape(u.email) + "|" + escape(u.password) + "|" + escape(u.role));
+                }
+            }
+            Files.write(file, lines, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        } catch (IOException e) {
+            System.out.println("Failed to save users: " + e.getMessage());
+        }
+    }
+
+    public void loadFromFile() {
+        Path file = Paths.get("data").resolve("users.txt");
+        if (!Files.exists(file)) return;
+        try {
+            List<String> lines = Files.readAllLines(file, StandardCharsets.UTF_8);
+            for (String line : lines) {
+                if (line.trim().isEmpty()) continue;
+                List<String> parts = splitEscaped(line, '|');
+                if (parts.size() < 4) continue;
+                User u = new User(unescape(parts.get(0)), unescape(parts.get(1)),
+                        unescape(parts.get(2)), unescape(parts.get(3)));
+                addUserDirect(u);
+            }
+        } catch (IOException e) {
+            System.out.println("Failed to load users: " + e.getMessage());
+        }
+    }
+
+    private static String escape(String s) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == '\\' || c == '|' || c == ';' || c == '\n' || c == '\r') sb.append('\\');
+            if (c == '\n') sb.append('n');
+            else if (c == '\r') sb.append('r');
+            else sb.append(c);
+        }
+        return sb.toString();
+    }
+
+    private static String unescape(String s) {
+        StringBuilder sb = new StringBuilder();
+        boolean esc = false;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (esc) {
+                if (c == 'n') sb.append('\n');
+                else if (c == 'r') sb.append('\r');
+                else sb.append(c);
+                esc = false;
+            } else if (c == '\\') {
+                esc = true;
+            } else {
+                sb.append(c);
+            }
+        }
+        if (esc) sb.append('\\');
+        return sb.toString();
+    }
+
+    private static List<String> splitEscaped(String s, char delim) {
+        List<String> out = new ArrayList<>();
+        StringBuilder cur = new StringBuilder();
+        boolean esc = false;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (esc) {
+                cur.append('\\').append(c);
+                esc = false;
+            } else if (c == '\\') {
+                esc = true;
+            } else if (c == delim) {
+                out.add(cur.toString());
+                cur.setLength(0);
+            } else {
+                cur.append(c);
+            }
+        }
+        if (esc) cur.append('\\');
+        out.add(cur.toString());
+        return out;
     }
 }

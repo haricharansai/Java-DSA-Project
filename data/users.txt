@@ -1,0 +1,7 @@
+Haricharansai|haricharansai@gmail.com|1234|citizen
+admin1|admin1@gmail.com|1234|administrator
+Hari|hari@gmail.com|1234|citizen
+worker1|worker1@gmail.com|1234|worker
+Anand|anand@gmail.com|1234|citizen
+Priya|priya@gmail.com|1234|citizen
+Ravi|ravi@gmail.com|1234|citizen
