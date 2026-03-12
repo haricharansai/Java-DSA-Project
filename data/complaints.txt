@@ -8,7 +8,6 @@ GC-2026-007|garbage|KPHB|Overflowing bins near bus stop|9876543215|Haricharansai
 GC-2026-008|drainage|Chandanagar|Drain blocked and bad smell|9876543216|Hari|in-progress|40|false|Complaint filed.
 GC-2026-009|water leakage|Hitech City|Pipe leakage on street|9876543217|Anand|resolved|100|false|Complaint filed.;Issue resolved by maintenance team.
 GC-2026-010|electricity|Kondapur|Power fluctuations since last night|9876543218|Priya|pending|10|true|Complaint filed.
-GC-2026-011|road|Bachupally|Broken speed breaker near school|9876543219|Ravi|in-progress|55|false|Complaint filed.
 GC-2026-012|streetlight|Nizampet|Lights off in lane 4|9876543220|Haricharansai|resolved|100|false|Complaint filed.;Lights repaired.
 GC-2026-013|garbage|Gachibowli|Garbage not collected for 2 days|9876543221|Priya|pending|0|false|Complaint filed.
 GC-2026-014|water supply|KPHB|Low water pressure in apartments|9876543222|Hari|in-progress|25|false|Complaint filed.

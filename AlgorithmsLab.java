@@ -123,7 +123,7 @@ public class AlgorithmsLab {
             else if (ch == 3) selectionSortDemo(complaints);
             else if (ch == 4) mergeSortDemo(complaints);
             else if (ch == 5) stackDemo(sc);
-            else if (ch == 6) queueDemo();
+            else if (ch == 6) queueDemo(sc);
             else if (ch == 7) linkedListDemo(complaints);
             else if (ch == 8) hashDeleteDemo(sc, complaints);
             else if (ch == 9) return;
@@ -181,9 +181,9 @@ public class AlgorithmsLab {
         }
 
         Complaint.ComplaintNodeData[] copy = Arrays.copyOf(arr, arr.length);
-        System.out.println("Before (first 5): " + summarize(copy, 5));
+        System.out.println("Before (first 10): " + summarize(copy, 15));
         selectionSortByProgress(copy);
-        System.out.println("After  (first 5): " + summarize(copy, 5));
+        System.out.println("After  (first 10): " + summarize(copy, 15));
         System.out.println("Time Complexity: O(n^2)");
     }
 
@@ -195,9 +195,9 @@ public class AlgorithmsLab {
         }
 
         Complaint.ComplaintNodeData[] copy = Arrays.copyOf(arr, arr.length);
-        System.out.println("Before (first 5): " + summarize(copy, 5));
+        System.out.println("Before (first 10): " + summarize(copy, 15));
         mergeSortById(copy);
-        System.out.println("After  (first 5): " + summarize(copy, 5));
+        System.out.println("After  (first 10): " + summarize(copy, 15));
         System.out.println("Time Complexity: O(n log n)");
     }
 
@@ -208,18 +208,39 @@ public class AlgorithmsLab {
         System.out.println("Time Complexity: O(n)");
     }
 
-    private static void queueDemo() {
-        IntCircularQueue q = new IntCircularQueue(5);
-        for (int i = 1; i <= 5; i++) q.enqueue(i);
+    private static void queueDemo(Scanner sc) {
+        int cap = readInt(sc, "Enter initial queue capacity: ");
+        if (cap <= 0) cap = 5;
+        IntCircularQueue q = new IntCircularQueue(cap);
 
-        int d1 = q.dequeue();
-        int d2 = q.dequeue();
-        q.enqueue(6);
-        q.enqueue(7);
+        while (true) {
+            System.out.println("\n-- Queue Demo (Circular Queue) --");
+            System.out.println("1. Enqueue");
+            System.out.println("2. Dequeue");
+            System.out.println("3. View Queue");
+            System.out.println("4. Back");
+            int ch = readInt(sc, "Enter choice: ");
 
-        System.out.println("Dequeued: " + d1 + ", " + d2);
-        System.out.println("Queue contents (front -> rear): " + q);
-        System.out.println("Time Complexity: O(1) per enqueue/dequeue");
+            if (ch == 1) {
+                int v = readInt(sc, "Enter value to enqueue: ");
+                q.enqueue(v);
+                System.out.println("Enqueued: " + v);
+            } else if (ch == 2) {
+                if (q.isEmpty()) {
+                    System.out.println("Queue is empty.");
+                } else {
+                    int v = q.dequeue();
+                    System.out.println("Dequeued: " + v);
+                }
+            } else if (ch == 3) {
+                System.out.println("Queue contents (front -> rear): " + q);
+            } else if (ch == 4) {
+                System.out.println("Time Complexity: O(1) per enqueue/dequeue");
+                return;
+            } else {
+                System.out.println("Invalid choice.");
+            }
+        }
     }
 
     private static void linkedListDemo(Complaint complaints) {
@@ -232,7 +253,7 @@ public class AlgorithmsLab {
 
         complaints.reverseInPlace();
         Complaint.ComplaintNodeData[] arr = complaints.toArray();
-        System.out.println("After reverse (first 5): " + summarize(arr, 5));
+        System.out.println("After reverse (first 10): " + summarize(arr, 10));
         complaints.reverseInPlace();
     }
 
